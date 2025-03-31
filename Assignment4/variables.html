@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Basics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>A. Variables, Functions, Conditions, and Loops</h2>
+        
+        <h3>BMI Calculator</h3>
+        <label for="weight">Weight (kg):</label>
+        <input type="number" id="weight">
+        <label for="height">Height (m):</label>
+        <input type="number" id="height" step="0.01">
+        <button onclick="calculateBMI()">Calculate BMI</button>
+        <p id="bmiResult"></p>
+        
+        <h3>Temperature Converter</h3>
+        <label for="temp">Temperature:</label>
+        <input type="number" id="temp">
+        <select id="tempType">
+            <option value="celsius">Celsius to Fahrenheit</option>
+            <option value="fahrenheit">Fahrenheit to Celsius</option>
+        </select>
+        <button onclick="convertTemp()">Convert</button>
+        <p id="tempResult"></p>
+        
+        <h3>Dynamic User Table</h3>
+        <button onclick="generateUserTable()">Generate User Table</button>
+        <div id="userTable"></div>
+    </div>
+
+    <script>
+        // Variables
+        const PI = 3.14159; // const
+        let counter = 0; // let
+        var globalVar = "I'm global"; // var (function-scoped)
+        
+        // BMI Calculator
+        function calculateBMI() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value);
+            
+            if (isNaN(weight) || isNaN(height) || height <= 0) {
+                document.getElementById('bmiResult').textContent = "Please enter valid weight and height";
+                return;
+            }
+            
+            const bmi = weight / (height * height);
+            let category;
+            
+            // Conditions
+            if (bmi < 18.5) {
+                category = "Underweight";
+            } else if (bmi < 25) {
+                category = "Normal weight";
+            } else if (bmi < 30) {
+                category = "Overweight";
+            } else {
+                category = "Obese";
+            }
+            
+            document.getElementById('bmiResult').textContent = 
+                `Your BMI is ${bmi.toFixed(1)} (${category})`;
+        }
+        
+        // Temperature Converter
+        function convertTemp() {
+            const temp = parseFloat(document.getElementById('temp').value);
+            const type = document.getElementById('tempType').value;
+            let convertedTemp, resultText;
+            
+            if (isNaN(temp)) {
+                document.getElementById('tempResult').textContent = "Please enter a valid temperature";
+                return;
+            }
+            
+            // Switch statement
+            switch(type) {
+                case "celsius":
+                    convertedTemp = (temp * 9/5) + 32;
+                    resultText = `${temp}°C = ${convertedTemp.toFixed(1)}°F`;
+                    break;
+                case "fahrenheit":
+                    convertedTemp = (temp - 32) * 5/9;
+                    resultText = `${temp}°F = ${convertedTemp.toFixed(1)}°C`;
+                    break;
+                default:
+                    resultText = "Invalid conversion type";
+            }
+            
+            document.getElementById('tempResult').textContent = resultText;
+        }
+        
+        // Dynamic User Table with Loop
+        function generateUserTable() {
+            const users = [
+                { id: 1, name: "Alice", age: 25 },
+                { id: 2, name: "Bob", age: 30 },
+                { id: 3, name: "Charlie", age: 22 },
+                { id: 4, name: "Diana", age: 28 }
+            ];
+            
+            let tableHTML = '<table><tr><th>ID</th><th>Name</th><th>Age</th></tr>';
+            
+            // For loop
+            for (let i = 0; i < users.length; i++) {
+                tableHTML += `<tr><td>${users[i].id}</td><td>${users[i].name}</td><td>${users[i].age}</td></tr>`;
+            }
+            
+            tableHTML += '</table>';
+            document.getElementById('userTable').innerHTML = tableHTML;
+        }
+    </script>
+</body>
+</html>

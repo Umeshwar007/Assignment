@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS3 Styling Assignment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables for Dark/Light Mode */
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --text-color: #333;
+            --bg-color: #f9f9f9;
+            --nav-bg: #fff;
+            --card-bg: #fff;
+            --footer-bg: #2c3e50;
+            --footer-text: #ecf0f1;
+            --overlay: rgba(0, 0, 0, 0.5);
+        }
+
+        .dark-mode {
+            --primary-color: #2980b9;
+            --secondary-color: #27ae60;
+            --text-color: #ecf0f1;
+            --bg-color: #2c3e50;
+            --nav-bg: #34495e;
+            --card-bg: #34495e;
+            --footer-bg: #1a252f;
+            --footer-text: #bdc3c7;
+            --overlay: rgba(0, 0, 0, 0.7);
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            line-height: 1.6;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: var(--nav-bg);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-left: 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            background-image: linear-gradient(var(--overlay), var(--overlay)), 
+                              url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Parallax effect */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: slideDown 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin-bottom: 2rem;
+            animation: slideUp 1s ease-out;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Content Sections */
+        .container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            font-family: 'Georgia', serif;
+        }
+
+        .card p {
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .card .btn {
+            display: inline-block;
+            padding: 0.6rem 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* About Section with different styling */
+        .about {
+            background-color: var(--card-bg);
+            padding: 4rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 4rem;
+        }
+
+        .about h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+            font-family: 'Verdana', sans-serif;
+        }
+
+        .about p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-family: 'Trebuchet MS', sans-serif;
+        }
+
+        /* Features Section with Flexbox */
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .feature {
+            flex: 1;
+            min-width: 250px;
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: scale(1.05);
+        }
+
+        .feature i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .social-links li {
+            margin: 0 1rem;
+        }
+
+        .social-links a {
+            color: var(--footer-text);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">CSS3 Magic</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="theme-toggle" id="themeToggle">
+            <i class="fas fa-moon"></i>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>Welcome to CSS3 Styling</h1>
+        <p>Explore the power of modern CSS with transitions, animations, and responsive design that creates beautiful user experiences.</p>
+        <a href="#features" class="btn">Discover More</a>
+    </section>
+
+    <!-- Content Sections -->
+    <div class="container">
+        <!-- Services Section with Grid -->
+        <section id="services">
+            <h2 class="section-title">Our Services</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3" alt="Web Design">
+                    <div class="card-content">
+                        <h3>Web Design</h3>
+                        <p>Beautiful, responsive designs that work on any device with smooth animations and transitions.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3" alt="UI/UX">
+                    <div class="card-content">
+                        <h3>UI/UX Development</h3>
+                        <p>User-centered interfaces with intuitive navigation and engaging interactions.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixlib=rb-4.0.3" alt="CSS Animations">
+                    <div class="card-content">
+                        <h3>CSS Animations</h3>
+                        <p>Bring your website to life with smooth transitions and eye-catching animations.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about">
+            <h2>About Our CSS3 Expertise</h2>
+            <p>We specialize in creating visually stunning websites using the latest CSS3 features. Our team stays up-to-date with modern web design trends to deliver exceptional user experiences.</p>
+            <p>From complex layouts with CSS Grid and Flexbox to subtle animations that guide users, we leverage the full power of CSS3 to make your website stand out.</p>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features">
+            <h2 class="section-title">Key Features</h2>
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-palette"></i>
+                    <h3>Visual Design</h3>
+                    <p>Beautiful color schemes, typography, and layouts that create memorable experiences.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Responsive</h3>
+                    <p>Fully responsive designs that work perfectly on all devices and screen sizes.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Performance</h3>
+                    <p>Optimized CSS that loads quickly and runs smoothly for better user engagement.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <ul class="social-links">
+            <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+            <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+            <li><a href="#"><i class="fab fa-github"></i></a></li>
+        </ul>
+        <p class="copyright">© 2023 CSS3 Styling Assignment. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Dark/Light Mode Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            // Change icon based on mode
+            const icon = themeToggle.querySelector('i');
+            if (body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<div class="container">
+    <h2>D. Forms & Validation</h2>
+    
+    <form id="registrationForm" onsubmit="validateForm(event)">
+        <div>
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" oninput="validateName()">
+            <span id="nameError" class="error"></span>
+        </div>
+        
+        <div>
+            <label for="email">Email:</label>
+            <input type="text" id="email" oninput="validateEmail()">
+            <span id="emailError" class="error"></span>
+        </div>
+        
+        <div>
+            <label for="phone">Phone Number:</label>
+            <input type="text" id="phone" oninput="validatePhone()">
+            <span id="phoneError" class="error"></span>
+        </div>
+        
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" oninput="validatePassword()">
+            <span id="passwordError" class="error"></span>
+        </div>
+        
+        <div>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" oninput="validateConfirmPassword()">
+            <span id="confirmPasswordError" class="error"></span>
+        </div>
+        
+        <button type="submit">Register</button>
+    </form>
+</div>
+
+<style>
+    .error {
+        color: red;
+        font-size: 0.8em;
+        margin-left: 10px;
+    }
+    input:invalid {
+        border-color: red;
+    }
+    input:valid {
+        border-color: green;
+    }
+</style>
+
+<script>
+    // Name validation (letters and spaces only)
+    function validateName() {
+        const name = document.getElementById('name').value;
+        const nameError = document.getElementById('nameError');
+        const regex = /^[A-Za-z\s]+$/;
+        
+        if (!name) {
+            nameError.textContent = "Name is required";
+            return false;
+        } else if (!regex.test(name)) {
+            nameError.textContent = "Name can only contain letters and spaces";
+            return false;
+        } else {
+            nameError.textContent = "";
+            return true;
+        }
+    }
+    
+    // Email validation
+    function validateEmail() {
+        const email = document.getElementById('email').value;
+        const emailError = document.getElementById('emailError');
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        if (!email) {
+            emailError.textContent = "Email is required";
+            return false;
+        } else if (!regex.test(email)) {
+            emailError.textContent = "Please enter a valid email address";
+            return false;
+        } else {
+            emailError.textContent = "";
+            return true;
+        }
+    }
+    
+    // Phone validation (10 digits)
+    function validatePhone() {
+        const phone = document.getElementById('phone').value;
+        const phoneError = document.getElementById('phoneError');
+        const regex = /^\d{10}$/;
+        
+        if (!phone) {
+            phoneError.textContent = "Phone number is required";
+            return false;
+        } else if (!regex.test(phone)) {
+            phoneError.textContent = "Phone number must be 10 digits";
+            return false;
+        } else {
+            phoneError.textContent = "";
+            return true;
+        }
+    }
+    
+    // Password validation (strong password)
+    function validatePassword() {
+        const password = document.getElementById('password').value;
+        const passwordError = document.getElementById('passwordError');
+        // At least 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special char
+        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        
+        if (!password) {
+            passwordError.textContent = "Password is required";
+            return false;
+        } else if (!regex.test(password)) {
+            passwordError.textContent = 
+                "Password must be at least 8 characters with uppercase, lowercase, number, and special character";
+            return false;
+        } else {
+            passwordError.textContent = "";
+            return true;
+        }
+    }
+    
+    // Confirm password validation
+    function validateConfirmPassword() {
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const confirmPasswordError = document.getElementById('confirmPasswordError');
+        
+        if (!confirmPassword) {
+            confirmPasswordError.textContent = "Please confirm your password";
+            return false;
+        } else if (password !== confirmPassword) {
+            confirmPasswordError.textContent = "Passwords do not match";
+            return false;
+        } else {
+            confirmPasswordError.textContent = "";
+            return true;
+        }
+    }
+    
+    // Form validation
+    function validateForm(event) {
+        event.preventDefault();
+        
+        const isNameValid = validateName();
+        const isEmailValid = validateEmail();
+        const isPhoneValid = validatePhone();
+        const isPasswordValid = validatePassword();
+        const isConfirmPasswordValid = validateConfirmPassword();
+        
+        if (isNameValid && isEmailValid && isPhoneValid && 
+            isPasswordValid && isConfirmPasswordValid) {
+            alert("Registration successful!");
+            document.getElementById('registrationForm').reset();
+        } else {
+            alert("Please fix the errors in the form");
+        }
+    }
+</script>

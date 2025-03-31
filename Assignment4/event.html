@@ -1,0 +1,67 @@
+<div class="container">
+    <h2>C. Event Handling & DOM Manipulation</h2>
+    
+    <h3>Change Text/Style</h3>
+    <p id="changeText">This text will change when you click the button.</p>
+    <button onclick="changeText()">Change Text</button>
+    <button onclick="changeStyle()">Change Style</button>
+    
+    <h3>Image Hover Effect</h3>
+    <img id="hoverImage" src="image1.jpg" width="200" 
+         onmouseover="changeImage(true)" onmouseout="changeImage(false)"
+         alt="Hover over me">
+    
+    <h3>Dynamic List</h3>
+    <input type="text" id="newItem" placeholder="Enter item">
+    <button onclick="addItem()">Add Item</button>
+    <ul id="itemList">
+        <li>Item 1 <button onclick="removeItem(this)">Remove</button></li>
+        <li>Item 2 <button onclick="removeItem(this)">Remove</button></li>
+    </ul>
+</div>
+
+<script>
+    // Change Text
+    function changeText() {
+        const textElement = document.getElementById('changeText');
+        textElement.textContent = "The text has been changed using JavaScript!";
+    }
+    
+    // Change Style
+    function changeStyle() {
+        const textElement = document.getElementById('changeText');
+        textElement.style.color = "red";
+        textElement.style.fontWeight = "bold";
+        textElement.style.fontSize = "20px";
+    }
+    
+    // Image Hover Effect
+    function changeImage(isHovering) {
+        const image = document.getElementById('hoverImage');
+        image.src = isHovering ? "image2.jpg" : "image1.jpg";
+    }
+    
+    // Dynamic List
+    function addItem() {
+        const input = document.getElementById('newItem');
+        const newItemText = input.value.trim();
+        
+        if (newItemText) {
+            const list = document.getElementById('itemList');
+            const newItem = document.createElement('li');
+            
+            newItem.innerHTML = `
+                ${newItemText}
+                <button onclick="removeItem(this)">Remove</button>
+            `;
+            
+            list.appendChild(newItem);
+            input.value = "";
+        }
+    }
+    
+    function removeItem(button) {
+        const listItem = button.parentElement;
+        listItem.remove();
+    }
+</script>

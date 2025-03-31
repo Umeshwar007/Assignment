@@ -1,0 +1,53 @@
+<div class="container">
+    <h2>Advanced: To-Do List App</h2>
+    
+    <input type="text" id="todoInput" placeholder="Add a new task">
+    <button onclick="addTodo()">Add</button>
+    
+    <ul id="todoList"></ul>
+</div>
+
+<script>
+    let todos = [];
+    
+    function addTodo() {
+        const input = document.getElementById('todoInput');
+        const task = input.value.trim();
+        
+        if (task) {
+            todos.push({ id: Date.now(), text: task, completed: false });
+            input.value = "";
+            renderTodoList();
+        }
+    }
+    
+    function toggleTodo(id) {
+        todos = todos.map(todo => 
+            todo.id === id ? { ...todo, completed: !todo.completed } : todo
+        );
+        renderTodoList();
+    }
+    
+    function deleteTodo(id) {
+        todos = todos.filter(todo => todo.id !== id);
+        renderTodoList();
+    }
+    
+    function renderTodoList() {
+        const todoList = document.getElementById('todoList');
+        todoList.innerHTML = "";
+        
+        todos.forEach(todo => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <input type="checkbox" ${todo.completed ? 'checked' : ''} 
+                       onclick="toggleTodo(${todo.id})">
+                <span style="${todo.completed ? 'text-decoration: line-through' : ''}">
+                    ${todo.text}
+                </span>
+                <button onclick="deleteTodo(${todo.id})">Delete</button>
+            `;
+            todoList.appendChild(li);
+        });
+    }
+</script>
